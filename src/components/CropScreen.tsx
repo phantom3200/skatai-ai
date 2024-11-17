@@ -13,6 +13,7 @@ import { FormattedImg } from '../app.types';
 import { initialCrop, Modes } from '../app.const';
 import { requestDataByImage } from '../app.services';
 import { nanoid } from 'nanoid';
+import * as Sentry from "@sentry/react";
 
 const CropScreen: FC = () => {
     const [croppedImg, setCroppedImg] = useRecoilState(croppedImage);
@@ -113,7 +114,10 @@ const CropScreen: FC = () => {
                     setMode(Modes.Chat);
                 }
             })
-            .catch((e) => console.log(e));
+            .catch((e) => {
+                Sentry.captureException(e);
+                console.log(e)
+            });
     };
 
     return (

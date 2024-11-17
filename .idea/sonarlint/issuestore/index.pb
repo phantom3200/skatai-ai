@@ -63,3 +63,8 @@ N
 src/icons/top-right-corner.svg,4/c/4c74341579bd1df3c0bffc55c0d65b684e85e48a
 A
 package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
+@
+build/index.html,9/9/990a85f5e72fc21bd93d9e8ddb10d110045a91c8
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
