@@ -6,6 +6,7 @@
     "name": "Viacheslav Lukhanin",
     "url": "https://www.linkedin.com/in/viacheslav-lukhanin-983687214/"
   },
+  "homepage": "https://phantom3200.github.io/skatai-ai/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +15,7 @@
     "@types/node": "^16.18.119",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "gh-pages": "^6.2.0",
     "nanoid": "^5.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -28,7 +30,9 @@
     "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
