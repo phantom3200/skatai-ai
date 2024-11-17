@@ -14,3 +14,14 @@ export const blobToBase64 = (blob: Blob) =>
         }
         return null;
     });
+
+export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
+    new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+            if (blob) {
+                resolve(blob);
+            } else {
+                reject(new Error('Failed to convert canvas to blob'));
+            }
+        }, 'image/png');
+    });

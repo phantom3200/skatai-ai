@@ -13,7 +13,8 @@ import { FormattedImg } from '../app.types';
 import { initialCrop, Modes } from '../app.const';
 import { requestDataByImage } from '../app.services';
 import { nanoid } from 'nanoid';
-import * as Sentry from "@sentry/react";
+import * as Sentry from '@sentry/react';
+import { canvasToBlob } from '../app.utils';
 
 const CropScreen: FC = () => {
     const [croppedImg, setCroppedImg] = useRecoilState(croppedImage);
@@ -30,14 +31,14 @@ const CropScreen: FC = () => {
     const getFormattedImage = useCallback(async (): Promise<FormattedImg | null> => {
         const image = imgRef.current;
         if (image && completedCrop) {
-            // This will size relative to the uploaded image
-            // size. If you want to size according to what they
-            // are looking at on screen, remove scaleX + scaleY
             const scaleX = image.naturalWidth / image.width;
             const scaleY = image.naturalHeight / image.height;
 
-            const offscreen = new OffscreenCanvas(completedCrop.width, completedCrop.height);
-            const ctx = offscreen.getContext('2d');
+            const canvas = document.createElement('canvas');
+            canvas.width = completedCrop.width;
+            canvas.height = completedCrop.height;
+
+            const ctx = canvas.getContext('2d');
             if (!ctx) {
                 throw new Error('No 2d context');
             }
@@ -55,10 +56,8 @@ const CropScreen: FC = () => {
                     completedCrop.height,
                 );
             }
-            // @ts-ignore
-            const blob = await offscreen.convertToBlob({
-                type: 'image/png',
-            });
+
+            const blob = await canvasToBlob(canvas);
 
             if (blobUrlRef.current) {
                 URL.revokeObjectURL(blobUrlRef.current);
@@ -116,7 +115,7 @@ const CropScreen: FC = () => {
             })
             .catch((e) => {
                 Sentry.captureException(e);
-                console.log(e)
+                console.log(e);
             });
     };
 
