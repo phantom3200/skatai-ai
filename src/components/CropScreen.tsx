@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useCallback, useRef, useState } from 'react';
+import { CSSProperties, FC, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
     chatMessages,
@@ -14,7 +14,7 @@ import { initialCrop, Modes } from '../app.const';
 import { requestDataByImage } from '../app.services';
 import { nanoid } from 'nanoid';
 import * as Sentry from '@sentry/react';
-import { canvasToBlob } from '../app.utils';
+import { canvasToBlob, getCropImgMaxHeight } from '../app.utils';
 
 const CropScreen: FC = () => {
     const [croppedImg, setCroppedImg] = useRecoilState(croppedImage);
@@ -25,8 +25,17 @@ const CropScreen: FC = () => {
     const url = useRecoilValue(imageUrl);
     const [crop, setCrop] = useState<Crop>(initialCrop);
     const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+    const [cropImgStyles, setCropImgStyles] = useState<CSSProperties>();
     const imgRef = useRef<HTMLImageElement>(null);
     const blobUrlRef = useRef('');
+    const cropWrapperRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (cropWrapperRef && cropWrapperRef.current) {
+            const maxHeight = getCropImgMaxHeight(cropWrapperRef.current);
+            setCropImgStyles({ maxHeight });
+        }
+    }, []);
 
     const getFormattedImage = useCallback(async (): Promise<FormattedImg | null> => {
         const image = imgRef.current;
@@ -121,7 +130,7 @@ const CropScreen: FC = () => {
 
     return (
         <div className={'crop-screen-container'}>
-            <div className={'crop-wrapper'}>
+            <div className={'crop-wrapper'} ref={cropWrapperRef}>
                 <ReactCrop
                     crop={crop}
                     onChange={(c) => setCrop(c)}
@@ -134,6 +143,7 @@ const CropScreen: FC = () => {
                         alt=""
                         className={'crop-img'}
                         onLoad={onImageLoad}
+                        style={cropImgStyles}
                     />
                 </ReactCrop>
             </div>

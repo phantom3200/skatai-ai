@@ -25,3 +25,10 @@ export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
             }
         }, 'image/png');
     });
+
+export const getCropImgMaxHeight = (element: HTMLDivElement) => {
+    const cropWrapperStyles = window.getComputedStyle(element);
+    const cropWrapperPaddingTop = parseInt(cropWrapperStyles.paddingTop, 10);
+    const imgMaxHeight = Number(element.clientHeight) - cropWrapperPaddingTop;
+    return imgMaxHeight;
+};

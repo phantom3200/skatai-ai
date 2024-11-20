@@ -2,6 +2,8 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html,
@@ -11,6 +13,7 @@ body,
     height: 100%;
     width: 100%;
     background: #000000;
+    max-height: 100vh;
 }
 .start-screen-container {
     padding: 20px;
@@ -46,10 +49,26 @@ body,
     height: 100%;
     .crop-wrapper {
         width: 100%;
-        padding: 20px;
+        padding: 20px 20px 0 20px;
         display: flex;
         justify-content: center;
         align-items: center;
+        height: calc(100% - 94px);
+        .ReactCrop, .ReactCrop__child-wrapper {
+            width: fit-content;
+            width: -webkit-fit-content;
+            max-width: fit-content;
+            height: fit-content;
+            max-height: 100%;
+        }
+        .ReactCrop {
+            display: flex;
+            height: fit-content;
+            margin-bottom: auto;
+        }
+        .ReactCrop__child-wrapper {
+            margin: auto;
+        }
     }
     .ReactCrop__crop-selection:not(.ReactCrop--no-animate .ReactCrop__crop-selection) {
         animation: none;
@@ -86,7 +105,7 @@ body,
     .crop-img {
         border-radius: 10px;
         margin: auto;
-        width: 100%;
+        object-fit: contain;
     }
     .crop-screen-footer {
         margin-top: auto;
