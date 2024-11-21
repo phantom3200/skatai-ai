@@ -23,7 +23,7 @@ export const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
             } else {
                 reject(new Error('Failed to convert canvas to blob'));
             }
-        }, 'image/png');
+        }, 'image/jpeg', 1.0);
     });
 
 export const getCropImgMaxHeight = (element: HTMLDivElement) => {

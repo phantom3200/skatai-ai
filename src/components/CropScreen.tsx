@@ -44,14 +44,17 @@ const CropScreen: FC = () => {
             const scaleY = image.naturalHeight / image.height;
 
             const canvas = document.createElement('canvas');
-            canvas.width = completedCrop.width;
-            canvas.height = completedCrop.height;
+            const devicePixelRatio = window.devicePixelRatio || 1;
+            canvas.width = completedCrop.width * devicePixelRatio;
+            canvas.height = completedCrop.height * devicePixelRatio;
 
             const ctx = canvas.getContext('2d');
             if (!ctx) {
                 throw new Error('No 2d context');
             }
-            // TODO: страдает качество изображения. Возможно переделать с канвасом как в примере
+
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+
             if ('drawImage' in ctx) {
                 ctx.drawImage(
                     image,
