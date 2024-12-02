@@ -68,3 +68,7 @@ A
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+C
+.cert/localhost.pem,3/0/30dd32d62865906069ab0fd828c9740765cb8cfc
+@
+.env.development,0/2/02250351aed90f62d344991ecf72bb885eca5946

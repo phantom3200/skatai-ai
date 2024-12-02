@@ -2,6 +2,7 @@ import { blobToBase64 } from './app.utils';
 import { Message, RequestDataByImageProps } from './app.types';
 import { nanoid } from 'nanoid';
 
+// TODO: добавить русский язык
 export const requestDataByImage = async ({
     file,
     setMessages,
