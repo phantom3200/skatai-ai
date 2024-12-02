@@ -2,7 +2,6 @@ import { blobToBase64 } from './app.utils';
 import { Message, RequestDataByImageProps } from './app.types';
 import { nanoid } from 'nanoid';
 
-// TODO: добавить русский язык
 export const requestDataByImage = async ({
     file,
     setMessages,
@@ -22,6 +21,7 @@ export const requestDataByImage = async ({
                 checksum: 'b6c9367b2ae5f0642b9404d1caad399bee8f6ec3',
             },
             payload: {
+                language: 'ru',
                 image: {
                     mimeType: 'image/png',
                     base64,
